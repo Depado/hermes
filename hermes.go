@@ -2,11 +2,12 @@ package hermes
 
 import (
 	"bytes"
+	"html/template"
+
 	"github.com/Masterminds/sprig"
 	"github.com/imdario/mergo"
 	"github.com/jaytaylor/html2text"
 	"github.com/russross/blackfriday"
-	"html/template"
 )
 
 // Hermes is an instance of the hermes email generator
@@ -42,10 +43,10 @@ const TDRightToLeft TextDirection = "rtl"
 // Appears in header & footer of e-mails
 type Product struct {
 	Name        string
-	Link        string // e.g. https://matcornic.github.io
-	Logo        string // e.g. https://matcornic.github.io/img/logo.png
-	Copyright   string // Copyright © 2017 Hermes. All rights reserved.
-	TroubleText string // TroubleText is the sentence at the end of the email for users having trouble with the button (default to `If you’re having trouble with the button '{ACTION}', copy and paste the URL below into your web browser.`)
+	Link        template.HTML // e.g. https://matcornic.github.io
+	Logo        string        // e.g. https://matcornic.github.io/img/logo.png
+	Copyright   string        // Copyright © 2017 Hermes. All rights reserved.
+	TroubleText string        // TroubleText is the sentence at the end of the email for users having trouble with the button (default to `If you’re having trouble with the button '{ACTION}', copy and paste the URL below into your web browser.`)
 }
 
 // Email is the email containing a body
@@ -59,16 +60,16 @@ type Markdown template.HTML
 
 // Body is the body of the email, containing all interesting data
 type Body struct {
-	Name         string   // The name of the contacted person
-	Intros       []string // Intro sentences, first displayed in the email
-	Dictionary   []Entry  // A list of key+value (useful for displaying parameters/settings/personal info)
-	Table        Table    // Table is an table where you can put data (pricing grid, a bill, and so on)
-	Actions      []Action // Actions are a list of actions that the user will be able to execute via a button click
-	Outros       []string // Outro sentences, last displayed in the email
-	Greeting     string   // Greeting for the contacted person (default to 'Hi')
-	Signature    string   // Signature for the contacted person (default to 'Yours truly')
-	Title        string   // Title replaces the greeting+name when set
-	FreeMarkdown Markdown // Free markdown content that replaces all content other than header and footer
+	Name         string          // The name of the contacted person
+	Intros       []template.HTML // Intro sentences, first displayed in the email
+	Dictionary   []Entry         // A list of key+value (useful for displaying parameters/settings/personal info)
+	Table        Table           // Table is an table where you can put data (pricing grid, a bill, and so on)
+	Actions      []Action        // Actions are a list of actions that the user will be able to execute via a button click
+	Outros       []template.HTML // Outro sentences, last displayed in the email
+	Greeting     string          // Greeting for the contacted person (default to 'Hi')
+	Signature    string          // Signature for the contacted person (default to 'Yours truly')
+	Title        string          // Title replaces the greeting+name when set
+	FreeMarkdown Markdown        // Free markdown content that replaces all content other than header and footer
 }
 
 // ToHTML converts Markdown to HTML
@@ -120,9 +121,9 @@ func setDefaultEmailValues(e *Email) error {
 	// Default values of an email
 	defaultEmail := Email{
 		Body: Body{
-			Intros:     []string{},
+			Intros:     []template.HTML{},
 			Dictionary: []Entry{},
-			Outros:     []string{},
+			Outros:     []template.HTML{},
 			Signature:  "Yours truly",
 			Greeting:   "Hi",
 		},
