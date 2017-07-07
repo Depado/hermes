@@ -107,7 +107,7 @@ type Action struct {
 type Button struct {
 	Color string
 	Text  string
-	Link  string
+	Link  template.URL
 }
 
 // Template is the struct given to Golang templating
