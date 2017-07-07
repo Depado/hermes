@@ -1,8 +1,10 @@
 package hermes
 
 import (
-	"github.com/stretchr/testify/assert"
+	"html/template"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var testedThemes = []Theme{
@@ -47,7 +49,7 @@ func (ed *SimpleExample) getExample() (Hermes, Email) {
 	email := Email{
 		Body{
 			Name: "Jon Snow",
-			Intros: []string{
+			Intros: []template.HTML{
 				"Welcome to Hermes! We're very excited to have you on board.",
 			},
 			Dictionary: []Entry{
@@ -88,7 +90,7 @@ func (ed *SimpleExample) getExample() (Hermes, Email) {
 					},
 				},
 			},
-			Outros: []string{
+			Outros: []template.HTML{
 				"Need help, or have questions? Just reply to this email, we'd love to help.",
 			},
 		},
@@ -278,7 +280,7 @@ Services will be unavailable based on the following schedule:
 Feel free to contact us for any question regarding this matter at [support@hermes-example.com](mailto:support@hermes-example.com) or in our [Gitter](https://gitter.im/)
 
 `,
-			Intros: []string{
+			Intros: []template.HTML{
 				"An intro that should be kept even with FreeMarkdown",
 			},
 			Dictionary: []Entry{
@@ -304,7 +306,7 @@ Feel free to contact us for any question regarding this matter at [support@herme
 					},
 				},
 			},
-			Outros: []string{
+			Outros: []template.HTML{
 				"An outro that should be kept even with FreeMarkdown",
 			},
 		},
@@ -415,7 +417,7 @@ func TestHermes_TextDirectionAsDefault(t *testing.T) {
 	email := Email{
 		Body{
 			Name: "Jon Snow",
-			Intros: []string{
+			Intros: []template.HTML{
 				"Welcome to Hermes! We're very excited to have you on board.",
 			},
 			Actions: []Action{
@@ -428,7 +430,7 @@ func TestHermes_TextDirectionAsDefault(t *testing.T) {
 					},
 				},
 			},
-			Outros: []string{
+			Outros: []template.HTML{
 				"Need help, or have questions? Just reply to this email, we'd love to help.",
 			},
 		},
