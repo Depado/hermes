@@ -28,7 +28,7 @@ func (dt *Flat) HTMLTemplate() string {
       height: 100%;
       margin: 0;
       line-height: 1.4;
-      background-color: #2c3e50;
+      background-color: #e6e6e6;
       color: #74787E;
       -webkit-text-size-adjust: none;
     }
@@ -41,7 +41,7 @@ func (dt *Flat) HTMLTemplate() string {
       width: 100%;
       margin: 0;
       padding: 0;
-      background-color: #2c3e50;
+      background-color: #e6e6e6;
     }
     .email-content {
       width: 100%;
@@ -88,7 +88,7 @@ func (dt *Flat) HTMLTemplate() string {
       text-align: center;
     }
     .email-footer p {
-      color: #eaeaea;
+      color: #000;
     }
     .body-action {
       width: 100%;
