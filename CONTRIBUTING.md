@@ -45,7 +45,7 @@ func (dt *MyCustomTheme) HTMLTemplate() string {
     return "<A go html template with wanted information>" 
 }
 
-func (dt *Default) PlainTextTemplate() string {
+func (dt *MyCustomTheme) PlainTextTemplate() string {
     // Get the template from a file (if you want to be able to change the template live without retstarting your application)
     // Or write the template by returning pure string here (if you want embbeded template and do not bother with external dependencies)
     return "<A go plaintext template with wanter information>"
@@ -188,7 +188,7 @@ The following will inject the table into the e-mail:
                         {{ with $width }}
                         width="{{ . }}"
                         {{ end }}
-                        {{ $align := index .CustomAlignement $entry.Key }}
+                        {{ $align := index .CustomAlignment $entry.Key }}
                         {{ with $align }}
                         style="text-align:{{ . }}"
                         {{ end }}
@@ -203,7 +203,7 @@ The following will inject the table into the e-mail:
                 {{ range $cell := $row }}
                 <td
                     {{ with $columns }}
-                        {{ $align := index .CustomAlignement $cell.Key }}
+                        {{ $align := index .CustomAlignment $cell.Key }}
                         {{ with $align }}
                         style="text-align:{{ . }}"
                         {{ end }}

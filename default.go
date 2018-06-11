@@ -325,7 +325,7 @@ func (dt *Default) HTMLTemplate() string {
                                           {{ with $width }}
                                             width="{{ . }}"
                                           {{ end }}
-                                          {{ $align := index .CustomAlignement $entry.Key }}
+                                          {{ $align := index .CustomAlignment $entry.Key }}
                                           {{ with $align }}
                                             style="text-align:{{ . }}"
                                           {{ end }}
@@ -340,7 +340,7 @@ func (dt *Default) HTMLTemplate() string {
                                       {{ range $cell := $row }}
                                         <td
                                           {{ with $columns }}
-                                            {{ $align := index .CustomAlignement $cell.Key }}
+                                            {{ $align := index .CustomAlignment $cell.Key }}
                                             {{ with $align }}
                                               style="text-align:{{ . }}"
                                             {{ end }}
@@ -438,7 +438,7 @@ func (dt *Default) HTMLTemplate() string {
 
 // PlainTextTemplate returns a Golang template that will generate an plain text email.
 func (dt *Default) PlainTextTemplate() string {
-	return `<h2>{{if .Email.Body.Title }}{{ .Email.Body.Title }}{{ else }}{{ .Email.Body.Greeting }} {{ .Email.Body.Name }}{{ end }},</h2>
+	return `<h2>{{if .Email.Body.Title }}{{ .Email.Body.Title }}{{ else }}{{ .Email.Body.Greeting }} {{ .Email.Body.Name }},{{ end }}</h2>
 {{ with .Email.Body.Intros }}
   {{ range $line := . }}
     <p>{{ $line }}</p>
