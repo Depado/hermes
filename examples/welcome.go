@@ -1,7 +1,9 @@
 package main
 
 import (
-	"github.com/matcornic/hermes"
+	"html/template"
+
+	"github.com/Depado/hermes"
 )
 
 type welcome struct {
@@ -15,7 +17,7 @@ func (w *welcome) Email() hermes.Email {
 	return hermes.Email{
 		Body: hermes.Body{
 			Name: "Jon Snow",
-			Intros: []string{
+			Intros: []template.HTML{
 				"Welcome to Hermes! We're very excited to have you on board.",
 			},
 			Dictionary: []hermes.Entry{
@@ -32,7 +34,7 @@ func (w *welcome) Email() hermes.Email {
 					},
 				},
 			},
-			Outros: []string{
+			Outros: []template.HTML{
 				"Need help, or have questions? Just reply to this email, we'd love to help.",
 			},
 		},

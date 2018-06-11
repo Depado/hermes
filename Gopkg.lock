@@ -40,20 +40,14 @@
 [[projects]]
   name = "github.com/imdario/mergo"
   packages = ["."]
-  revision = "7fe0c75c13abdee74b09fcacef5ea1c6bba6a874"
-  version = "0.2.4"
+  revision = "9316a62528ac99aaecb4e47eadd6dc8aa6533d58"
+  version = "v0.3.5"
 
 [[projects]]
   branch = "master"
   name = "github.com/jaytaylor/html2text"
   packages = ["."]
   revision = "57d518f124b0cf46ea2021f25a01396b3522e6fb"
-
-[[projects]]
-  name = "github.com/matcornic/hermes"
-  packages = ["."]
-  revision = "23ab47deb5a321481be0c4936b810c1420da2262"
-  version = "1.1.1"
 
 [[projects]]
   name = "github.com/mattn/go-runewidth"
@@ -118,6 +112,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "96491f1bafc73c243db229ad4c99ff465bc0710e36d919ea458602c73215dba4"
+  inputs-digest = "54b9844414dcfb770a153adee33a252cd30ebdd87aafe724ecdfd090d1e06aa1"
   solver-name = "gps-cdcl"
   solver-version = 1

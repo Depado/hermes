@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/matcornic/hermes"
 	"io/ioutil"
 	"os"
+
+	"github.com/Depado/hermes"
 )
 
 type example interface {

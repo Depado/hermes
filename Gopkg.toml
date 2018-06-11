@@ -26,10 +26,6 @@
   version = "2.14.1"
 
 [[constraint]]
-  name = "github.com/imdario/mergo"
-  version = "0.2.4"
-
-[[constraint]]
   branch = "master"
   name = "github.com/jaytaylor/html2text"
 

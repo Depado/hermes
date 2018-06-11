@@ -1,7 +1,9 @@
 package main
 
 import (
-	"github.com/matcornic/hermes"
+	"html/template"
+
+	"github.com/Depado/hermes"
 )
 
 type reset struct {
@@ -15,7 +17,7 @@ func (r *reset) Email() hermes.Email {
 	return hermes.Email{
 		Body: hermes.Body{
 			Name: "Jon Snow",
-			Intros: []string{
+			Intros: []template.HTML{
 				"You have received this email because a password reset request for Hermes account was received.",
 			},
 			Actions: []hermes.Action{
@@ -28,7 +30,7 @@ func (r *reset) Email() hermes.Email {
 					},
 				},
 			},
-			Outros: []string{
+			Outros: []template.HTML{
 				"If you did not request a password reset, no further action is required on your part.",
 			},
 			Signature: "Thanks",

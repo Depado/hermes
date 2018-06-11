@@ -1,7 +1,9 @@
 package main
 
 import (
-	"github.com/matcornic/hermes"
+	"html/template"
+
+	"github.com/Depado/hermes"
 )
 
 type receipt struct {
@@ -15,7 +17,7 @@ func (r *receipt) Email() hermes.Email {
 	return hermes.Email{
 		Body: hermes.Body{
 			Name: "Jon Snow",
-			Intros: []string{
+			Intros: []template.HTML{
 				"Your order has been processed successfully.",
 			},
 			Table: hermes.Table{
