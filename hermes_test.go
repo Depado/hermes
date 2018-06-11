@@ -444,9 +444,9 @@ func TestHermes_TextDirectionAsDefault(t *testing.T) {
 
 func TestHermes_Default(t *testing.T) {
 	h := Hermes{}
-	setDefaultHermesValues(&h)
+	setDefaultHermesValues(&h) // nolint: errcheck
 	email := Email{}
-	setDefaultEmailValues(&email)
+	setDefaultEmailValues(&email) // nolint: errcheck
 
 	assert.Equal(t, h.TextDirection, TDLeftToRight)
 	assert.Equal(t, h.Theme, new(Default))

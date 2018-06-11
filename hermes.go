@@ -29,7 +29,7 @@ type TextDirection string
 
 var templateFuncs = template.FuncMap{
 	"url": func(s string) template.URL {
-		return template.URL(s)
+		return template.URL(s) // nolint: gas
 	},
 }
 
@@ -74,7 +74,7 @@ type Body struct {
 
 // ToHTML converts Markdown to HTML
 func (c Markdown) ToHTML() template.HTML {
-	return template.HTML(blackfriday.Run([]byte(string(c))))
+	return template.HTML(blackfriday.Run([]byte(string(c)))) // nolint: gas
 }
 
 // Entry is a simple entry of a map
@@ -195,6 +195,6 @@ func (h *Hermes) generateTemplate(email Email, tplt string) (string, error) {
 		return "", err
 	}
 	var b bytes.Buffer
-	t.Execute(&b, Template{*h, email})
-	return b.String(), nil
+	err = t.Execute(&b, Template{*h, email})
+	return b.String(), err
 }
