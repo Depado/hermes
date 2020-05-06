@@ -8,13 +8,15 @@ import (
 	"github.com/imdario/mergo"
 	"github.com/jaytaylor/html2text"
 	"github.com/russross/blackfriday/v2"
+	"github.com/vanng822/go-premailer/premailer"
 )
 
 // Hermes is an instance of the hermes email generator
 type Hermes struct {
-	Theme         Theme
-	TextDirection TextDirection
-	Product       Product
+	Theme              Theme
+	TextDirection      TextDirection
+	Product            Product
+	DisableCSSInlining bool
 }
 
 // Theme is an interface to implement when creating a new theme
@@ -97,17 +99,19 @@ type Columns struct {
 	CustomAlignment map[string]string
 }
 
-// Action is an action the user can do on the email (click on a button)
+// Action is anything the user can act on (i.e., click on a button, view an invite code)
 type Action struct {
 	Instructions string
 	Button       Button
+	InviteCode   string
 }
 
 // Button defines an action to launch
 type Button struct {
-	Color string
-	Text  string
-	Link  template.URL
+	Color     string
+	TextColor string
+	Text      string
+	Link      template.URL
 }
 
 // Template is the struct given to Golang templating
@@ -141,7 +145,7 @@ func setDefaultHermesValues(h *Hermes) error {
 		TextDirection: defaultTextDirection,
 		Product: Product{
 			Name:        "Hermes",
-			Copyright:   "Copyright © 2017 Hermes. All rights reserved.",
+			Copyright:   "Copyright © 2020 Hermes. All rights reserved.",
 			TroubleText: "If you’re having trouble with the button '{ACTION}', copy and paste the URL below into your web browser.",
 		},
 	}
@@ -190,11 +194,31 @@ func (h *Hermes) generateTemplate(email Email, tplt string) (string, error) {
 
 	// Generate the email from Golang template
 	// Allow usage of simple function from sprig : https://github.com/Masterminds/sprig
-	t, err := template.New("hermes").Funcs(sprig.FuncMap()).Funcs(templateFuncs).Parse(tplt)
+	t, err := template.New("hermes").Funcs(sprig.FuncMap()).Funcs(templateFuncs).Funcs(template.FuncMap{
+		"safe": func(s string) template.HTML { return template.HTML(s) }, // Used for keeping comments in generated template
+	}).Parse(tplt)
 	if err != nil {
 		return "", err
 	}
 	var b bytes.Buffer
 	err = t.Execute(&b, Template{*h, email})
-	return b.String(), err
+	if err != nil {
+		return "", err
+	}
+
+	res := b.String()
+	if h.DisableCSSInlining {
+		return res, nil
+	}
+
+	// Inlining CSS
+	prem, err := premailer.NewPremailerFromString(res, premailer.NewOptions())
+	if err != nil {
+		return "", err
+	}
+	html, err := prem.Transform()
+	if err != nil {
+		return "", err
+	}
+	return html, nil
 }
